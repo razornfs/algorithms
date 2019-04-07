@@ -26,7 +26,7 @@ public class MyArray {
         System.out.println("Faktyczny rozmiar tablicy: " + arr.length);
     }
 
-    public int length() {
+    public int size() {
         return size;
     }
 
@@ -100,5 +100,17 @@ public class MyArray {
         }
         arr = temp;
         return ret;
+    }
+
+    public void insert(int index, int number) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Próba wstawienia poza rozmiar tablicy");
+        }
+        size++;
+        ensureCapacity();
+        for (int i = size - 1; i > index; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[index] = number;
     }
 }

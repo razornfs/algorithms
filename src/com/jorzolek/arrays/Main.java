@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         MyArray myArray = new MyArray(new int[]{});
         myArray.print();
-        System.out.println(myArray.length());
+        System.out.println(myArray.size());
 
         myArray.push(10);
         myArray.print();
@@ -49,22 +49,7 @@ public class Main {
         myArray.push(14);
         myArray.print();
 
-        myArray.pop();
-        myArray.print();
-
-        myArray.pop();
-        myArray.print();
-
-        myArray.pop();
-        myArray.print();
-
-        myArray.pop();
-        myArray.print();
-
-        myArray.pop();
-        myArray.print();
-
-        myArray.pop();
+        myArray.insert(5, 10);
         myArray.print();
     }
 }
