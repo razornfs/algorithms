@@ -1,8 +1,11 @@
 package com.jorzolek.arrays;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-public class MyArray {
+public class MyArray implements Iterable<Integer> {
     private int[] arr;
     private int size;
 
@@ -40,7 +43,7 @@ public class MyArray {
     }
 
     public int pick(int index) {
-        if (index < 0 || index >= arr.length) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException(
                     String.format("Podales zly indeks, musi byc w przedziale [0, %d]", arr.length - 1));
         }
@@ -79,26 +82,22 @@ public class MyArray {
         return arr[size];
     }
 
-    public void unshift(int i) {
+    public void unshift(int element) {
         size++;
         ensureCapacity();
-        int[] temp = new int[arr.length];
-        temp[0] = i;
-        for (int j = 1; j < arr.length; j++) {
-            temp[j] = arr[j - 1];
+        for (int i = size - 1; i > 0; i--) {
+            arr[i] = arr[i - 1];
         }
-        arr = temp;
+        arr[0] = element;
     }
 
     public int shift() {
         size--;
         ensureCapacity();
         int ret = arr[0];
-        int[] temp = new int[arr.length];
-        for (int i = 1; i < arr.length; i++) {
-            temp[i - 1] = arr[i];
+        for (int i = 0; i < size; i++) {
+            arr[i] = arr[i + 1];
         }
-        arr = temp;
         return ret;
     }
 
@@ -112,5 +111,47 @@ public class MyArray {
             arr[i] = arr[i - 1];
         }
         arr[index] = number;
+    }
+
+    public int remove(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Próba usunięcia elementu poza tablicą");
+        }
+        size--;
+        ensureCapacity();
+        int ret = arr[index];
+        for (int i = index; i < size; i++) {
+            arr[i] = arr[i + 1];
+        }
+        return ret;
+    }
+
+    public IntStream stream() {
+        return Arrays.stream(Arrays.copyOf(arr, size));
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new MyArrayIterator();
+    }
+
+    private class MyArrayIterator implements Iterator<Integer> {
+
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public Integer next() {
+            return arr[currentIndex++];
+        }
+
+        @Override
+        public void remove() {
+            MyArray.this.remove(currentIndex);
+        }
     }
 }
