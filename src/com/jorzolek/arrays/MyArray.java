@@ -3,7 +3,6 @@ package com.jorzolek.arrays;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MyArray implements Iterable<Integer> {
     private int[] arr;
@@ -52,11 +51,11 @@ public class MyArray implements Iterable<Integer> {
 
     public void push(int toPush) {
         size++;
-        ensureCapacity();
+        resize();
         arr[size - 1] = toPush;
     }
 
-    private void ensureCapacity() {
+    private void resize() {
         if (size > arr.length) {
             int[] temp = new int[arr.length * 2 + 1];
             for (int i = 0; i < arr.length; i++) {
@@ -78,13 +77,13 @@ public class MyArray implements Iterable<Integer> {
 
     public int pop() {
         size--;
-        ensureCapacity();
+        resize();
         return arr[size];
     }
 
     public void unshift(int element) {
         size++;
-        ensureCapacity();
+        resize();
         for (int i = size - 1; i > 0; i--) {
             arr[i] = arr[i - 1];
         }
@@ -93,7 +92,7 @@ public class MyArray implements Iterable<Integer> {
 
     public int shift() {
         size--;
-        ensureCapacity();
+        resize();
         int ret = arr[0];
         for (int i = 0; i < size; i++) {
             arr[i] = arr[i + 1];
@@ -106,7 +105,7 @@ public class MyArray implements Iterable<Integer> {
             throw new IndexOutOfBoundsException("Próba wstawienia poza rozmiar tablicy");
         }
         size++;
-        ensureCapacity();
+        resize();
         for (int i = size - 1; i > index; i--) {
             arr[i] = arr[i - 1];
         }
@@ -118,7 +117,7 @@ public class MyArray implements Iterable<Integer> {
             throw new IndexOutOfBoundsException("Próba usunięcia elementu poza tablicą");
         }
         size--;
-        ensureCapacity();
+        resize();
         int ret = arr[index];
         for (int i = index; i < size; i++) {
             arr[i] = arr[i + 1];
