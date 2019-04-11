@@ -44,36 +44,39 @@ public class MyGenericArray<T> implements Iterable<T> {
 
     public void push(T toPush) {
         size++;
-        resize();
+        grow();
         arr[size - 1] = toPush;
     }
 
-    private void resize() {
+    private void grow() {
         if (size > arr.length) {
             Object[] temp = new Object[arr.length * 2 + 1];
             System.arraycopy(arr, 0, temp, 0, arr.length);
             arr = temp;
+        }
+    }
+
+    private void shrink() {
+        if (size < 0) {
+            throw new ArrayIndexOutOfBoundsException("Nie ma elementow");
         }
         if (size * 4 < arr.length) {
             Object[] temp = new Object[arr.length / 2];
             System.arraycopy(arr, 0, temp, 0, size);
             arr = temp;
         }
-        if (size < 0) {
-            throw new ArrayIndexOutOfBoundsException("Nie ma elementow");
-        }
     }
 
     @SuppressWarnings("unchecked")
     public T pop() {
         size--;
-        resize();
+        shrink();
         return (T) arr[size];
     }
 
     public void unshift(T element) {
         size++;
-        resize();
+        grow();
         System.arraycopy(arr, 0, arr, 1, size - 1);
         arr[0] = element;
     }
@@ -81,7 +84,7 @@ public class MyGenericArray<T> implements Iterable<T> {
     @SuppressWarnings("unchecked")
     public T shift() {
         size--;
-        resize();
+        shrink();
         T ret = (T) arr[0];
         System.arraycopy(arr, 1, arr, 0, size);
         return ret;
@@ -92,7 +95,7 @@ public class MyGenericArray<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Próba wstawienia poza rozmiar tablicy");
         }
         size++;
-        resize();
+        grow();
         System.arraycopy(arr, index, arr, index + 1, size - 1 - index);
         arr[index] = element;
     }
@@ -103,7 +106,7 @@ public class MyGenericArray<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Próba usunięcia elementu poza tablicą");
         }
         size--;
-        resize();
+        shrink();
         T ret = (T) arr[index];
         System.arraycopy(arr, index + 1, arr, index, size - index);
         return ret;
@@ -135,7 +138,7 @@ public class MyGenericArray<T> implements Iterable<T> {
             i++;
             j--;
         }
-        return new MyGenericArray<T>((T[]) reversed);
+        return new MyGenericArray<>((T[]) reversed);
     }
 
     @SuppressWarnings("unchecked")
@@ -143,15 +146,15 @@ public class MyGenericArray<T> implements Iterable<T> {
         return Arrays.stream((T[]) Arrays.copyOf(arr, size));
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return new MyGenericArrayIterator();
-    }
-
     public void print() {
         System.out.println(Arrays.toString(Arrays.copyOf(arr, size)));
         System.out.println("Liczba elementow: " + size);
         System.out.println("Faktyczny rozmiar tablicy: " + arr.length);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new MyGenericArrayIterator();
     }
 
     private class MyGenericArrayIterator implements Iterator<T> {
