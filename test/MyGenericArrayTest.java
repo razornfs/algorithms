@@ -118,10 +118,10 @@ public class MyGenericArrayTest {
         myGenericArrayWithNumbers.remove(10);
     }
 
-    @Test
+/*    @Test
     public void reverse() {
         MyGenericArray<String> reverse = myGenericArrayWithNumbers.reverse();
         String[] reversed = new String[]{"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"};
         assertEquals(reversed, reverse);
-    }
+    }*/
 }

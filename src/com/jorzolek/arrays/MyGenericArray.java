@@ -17,7 +17,7 @@ public class MyGenericArray<T> implements Iterable<T> {
     }
 
     public MyGenericArray() {
-        arr = new Object[5];
+        arr = new Object[10];
     }
 
     public int size() {

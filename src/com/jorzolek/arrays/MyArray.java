@@ -19,7 +19,6 @@ public class MyArray implements Iterable<Integer> {
 
     public MyArray() {
         arr = new int[10];
-        size = 10;
     }
 
     public void print() {
