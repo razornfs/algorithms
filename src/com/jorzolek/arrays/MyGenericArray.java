@@ -71,6 +71,7 @@ public class MyGenericArray<T> implements Iterable<T> {
     public T pop() {
         size--;
         shrink();
+        arr[size + 1] = null;
         return (T) arr[size];
     }
 
@@ -87,6 +88,7 @@ public class MyGenericArray<T> implements Iterable<T> {
         shrink();
         T ret = (T) arr[0];
         System.arraycopy(arr, 1, arr, 0, size);
+        arr[size + 1] = null;
         return ret;
     }
 
