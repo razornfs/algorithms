@@ -16,6 +16,10 @@ public class MyGenericArray<T> implements Iterable<T> {
         size = arr.length;
     }
 
+    public MyGenericArray(int capacity) {
+        arr = new Object[capacity];
+    }
+
     public MyGenericArray() {
         arr = new Object[10];
     }

@@ -1,9 +1,11 @@
 package com.jorzolek.arrays;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
-        int[] test = new int[100000000];
+/*        int[] test = new int[100000000];
         for (int i = 0; i < test.length; i++) {
             test[i] = i;
         }
@@ -29,7 +31,21 @@ public class Main {
         MyGenericArray<Integer> integers = new MyGenericArray<>();
         for (Integer integer : integers) {
 
-        }
+        }*/
 
+        Sort s = new Sort();
+        int[] test = new int[80000];
+        for (int i = 0; i < test.length; i++) {
+            test[i] = (int) (Math.random() * 100);
+        }
+        s.quickSort(test, 0, test.length - 1);
+        int count = s.getCount();
+        int log = test.length * log(test.length, 2);
+        System.out.println(count / log);
+
+    }
+
+    static int log(int x, int base) {
+        return (int) (Math.log(x) / Math.log(base));
     }
 }
