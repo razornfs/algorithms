@@ -1,3 +1,5 @@
+package com.jorzolek.arrays;
+
 import com.jorzolek.arrays.MyGenericArray;
 import org.junit.Test;
 
