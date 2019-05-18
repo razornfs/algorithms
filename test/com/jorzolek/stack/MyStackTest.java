@@ -44,5 +44,17 @@ public class MyStackTest {
         myStack.pop();
         myStack.pop(); //wyjątek
     }
-    //contains, pick
+    @Test
+    public void testContains() {
+        Assert.assertTrue(myStack.contains(1));
+        myStack.push(4);
+        Assert.assertTrue(myStack.contains(4));
+    }
+
+    @Test
+    public void testPeek() {
+        Assert.assertEquals(3, (int) myStack.peek());
+        myStack.push(4);
+        Assert.assertEquals(4, (int) myStack.peek());
+    }
 }
